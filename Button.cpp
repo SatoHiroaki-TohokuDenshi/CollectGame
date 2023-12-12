@@ -1,4 +1,5 @@
 #include "Button.h"
+#include "Engine/Text.h"
 #include "Engine/Input.h"
 #include "Engine/Image.h"
 #include "Engine/Direct3D.h"
@@ -6,7 +7,7 @@
 // コンストラクタ
 Button::Button(GameObject* parent)
 	:GameObject(parent, "Button"), position_{ transform_.position_ }
-	, pictSize_{ 0.0f, 0.0f, 0.0f }
+	, pictSize_{ 0.0f, 0.0f, 0.0f }, pText_(nullptr), txt_("")
 {
 }
 
@@ -17,7 +18,8 @@ Button::~Button() {
 
 // 初期化
 void Button::Initialize() {
-
+	pText_ = new Text;
+	pText_->Initialize();
 }
 
 // 更新
@@ -52,11 +54,18 @@ void Button::Draw() {
 		Image::SetTransform(hPict_[0], t);
 		Image::Draw(hPict_[0]);
 	}
+
+	if (txt_ != ""){
+		int tx = (int)(position_.x + (pictSize_.x / 2.0f));
+		tx -= (int)(txt_.size() / 2) * pText_->GetTextWidth();
+		int ty = (int)(position_.y + (pictSize_.y / 2.0f));
+		pText_->Draw(tx, ty, txt_.c_str());
+	}
 }
 
 // 開放
 void Button::Release() {
-
+	pText_->Release();
 }
 
 void Button::LoadFile(std::string fileName) {
@@ -81,4 +90,8 @@ bool Button::IsHovered() {
 		return true;
 	}
 	return false;
+}
+
+void Button::SetText(std::string t) {
+	txt_ = t;
 }

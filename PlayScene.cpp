@@ -14,6 +14,7 @@ void PlayScene::Initialize() {
 	Button* b = (Button*)Instantiate<Button>(this);
 	b->LoadFile("Image\\TestButton");
 	b->SetButtonPosition(50, 20);
+	b->SetText("Test");
 }
 
 // XV
