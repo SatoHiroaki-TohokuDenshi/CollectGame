@@ -4,7 +4,7 @@
 
 // コンストラクタ
 Stage::Stage(GameObject* parent)
-	:GameObject(parent, "Stage"), hModel_(-1)
+	:GameObject(parent, "Stage")
 {
 }
 
@@ -16,8 +16,11 @@ Stage::~Stage() {
 // 初期化
 void Stage::Initialize() {
 	// モデルデータのロード
-	hModel_ = Model::Load("Model\\TestGround.fbx");
-	assert(hModel_ >= 0);
+	std::string fn[] = {
+		"Model\\TestGround.fbx",
+		"Model\\TestLowerUphill.fbx", "Model\\TestUpperUphill.fbx"
+		"Model\\TestUpperDownhill.fbx", "Model\\TestLowerDownhill.fbx"
+	};
 
 	CsvReader csv;
 	csv.Load("TestMap.csv");
@@ -42,8 +45,8 @@ void Stage::Draw() {
 	for (int x = 0; x < stage_.size(); x++) {
 		for (int y = 0; y < stage_[x].size(); y++) {
 			t.position_ = { (float)x, (float)y, 0.0f };
-			Model::SetTransform(hModel_, t);
-			Model::Draw(hModel_);
+			//Model::SetTransform(hModel_, t);
+			//Model::Draw(hModel_);
 		}
 	}
 
