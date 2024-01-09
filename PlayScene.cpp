@@ -1,5 +1,6 @@
 #include "PlayScene.h"
 #include "Stage.h"
+#include "Player.h"
 #include "Button.h"
 
 // コンストラクタ
@@ -10,11 +11,12 @@ PlayScene::PlayScene(GameObject* parent)
 
 // 初期化
 void PlayScene::Initialize() {
-	Instantiate<Stage>(this);
-	Button* b = (Button*)Instantiate<Button>(this);
-	b->LoadFile("Image\\TestButton");
-	b->SetButtonPosition(50, 20);
-	b->SetText("Test");
+	//Instantiate<Stage>(this);
+	//Button* b = (Button*)Instantiate<Button>(this);
+	//b->LoadFile("Image\\TestButton");
+	//b->SetButtonPosition(50, 20);
+	//b->SetText("Test");
+	Instantiate<Player>(this);
 }
 
 // 更新

@@ -15,6 +15,8 @@ private:
 	// 重力を計算
 	void CalcGravity();
 
+	int hModel_;    //モデル番号
+
 public:
 	// コンストラクタ
 	Player(GameObject* parent);

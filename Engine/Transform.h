@@ -46,6 +46,14 @@ inline XMFLOAT3 operator+(XMFLOAT3& a, XMFLOAT3& b) {
 	return { a.x + b.x, a.y + b.y, a.z + b.z };
 }
 
+inline XMFLOAT3 operator+=(XMFLOAT3& a, XMFLOAT3& b) {
+	return { a.x + b.x, a.y + b.y, a.z + b.z };
+}
+
 inline XMFLOAT3 operator-(XMFLOAT3& a, XMFLOAT3& b) {
+	return { a.x - b.x, a.y - b.y, a.z - b.z };
+}
+
+inline XMFLOAT3 operator-=(XMFLOAT3& a, XMFLOAT3& b) {
 	return { a.x - b.x, a.y - b.y, a.z - b.z };
 }
