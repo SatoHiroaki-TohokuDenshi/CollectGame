@@ -46,14 +46,15 @@ void Button::Draw() {
 	Transform t{};
 	t.position_ = { px, py, 0.0f };
 
+	int index = 0;
 	if (IsHovered()) {
-		Image::SetTransform(hPict_[1], t);
-		Image::Draw(hPict_[1]);
+		index = 1;
 	}
 	else {
-		Image::SetTransform(hPict_[0], t);
-		Image::Draw(hPict_[0]);
+		index = 0;
 	}
+	Image::SetTransform(hPict_[index], t);
+	Image::Draw(hPict_[index]);
 
 	if (txt_ != ""){
 		int tx = (int)(position_.x + (pictSize_.x / 2.0f));
