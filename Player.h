@@ -4,18 +4,14 @@
 // Playerを管理するクラス
 class Player : public GameObject {
 private:
-	XMFLOAT3 velocity_;		// 移動量
-	bool isJumped_;			// ジャンプしたか
+	int hModel_;		//モデル番号
 
-	// 移動処理
-	void Move();
+	// 移動に関係するやつ
+	XMFLOAT3 velocity_;	// 移動量
+	float gravity_;		// 重力加速度
+	bool isJumped_;		// ジャンプしたか
 
-	// 重力加速度
-	float gravity_;
-	// 重力を計算
-	void CalcGravity();
-
-	int hModel_;    //モデル番号
+	void MoveInput();	// 移動処理
 
 public:
 	// コンストラクタ

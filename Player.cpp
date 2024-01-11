@@ -5,8 +5,8 @@
 
 // コンストラクタ
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"), isJumped_(false),
-	velocity_(0.0f, 0.0f, 0.0f), gravity_(0.1f), hModel_(-1)
+	: GameObject(parent, "Player"), hModel_(-1), velocity_(0.0f, 0.0f, 0.0f),
+	isJumped_(false), gravity_(0.01f)
 {
 }
 
@@ -28,9 +28,8 @@ void Player::Initialize() {
 
 // 更新
 void Player::Update() {
-	Move();
-
-	transform_.position_ += velocity_;
+	MoveInput();
+	transform_.position_ = transform_.position_ + velocity_;
 }
 
 // 描画
@@ -50,25 +49,23 @@ void Player::OnCollision(GameObject* pTarget) {
 
 }
 
-void Player::CalcGravity() {
-	velocity_.y -= gravity_;
-}
-
-void Player::Move() {
-	// 左
+void Player::MoveInput() {
 	if (Input::IsKey(DIK_A)) {
-		velocity_.x -= 0.1f;
+		velocity_.x = -0.1f;
 	}
-	// 右
-	if (Input::IsKey(DIK_D)) {
-		velocity_.x += 0.1f;
+	else if (Input::IsKey(DIK_D)) {
+		velocity_.x = 0.1f;
+	}
+	else {
+		velocity_.x = 0.0f;
 	}
 
-	// ジャンプしているなら、入力を受け付けない
-	if (isJumped_)	return;
-	// ジャンプ
-	if (Input::IsKeyDown(DIK_SPACE)) {
-		velocity_.y = 5.0f;
+	if (isJumped_) {
+		velocity_.y -= gravity_;
+		return;
+	}
+	if (Input::IsKey(DIK_SPACE)) {
+		velocity_.y = 0.3f;
 		isJumped_ = true;
 	}
 }

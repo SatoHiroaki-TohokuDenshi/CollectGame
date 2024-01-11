@@ -4,7 +4,7 @@
 
 // コンストラクタ
 Stage::Stage(GameObject* parent)
-	:GameObject(parent, "Stage")
+	:GameObject(parent, "Stage"), hModel_(-1)
 {
 }
 
@@ -15,21 +15,18 @@ Stage::~Stage() {
 
 // 初期化
 void Stage::Initialize() {
-	// モデルデータのロード
-	std::string fn[] = {
-		"Model\\TestGround.fbx",
-		"Model\\TestLowerUphill.fbx", "Model\\TestUpperUphill.fbx"
-		"Model\\TestUpperDownhill.fbx", "Model\\TestLowerDownhill.fbx"
-	};
+	//モデルデータのロード
+	hModel_ = Model::Load("Model\\TestGround.fbx");
+	assert(hModel_ >= 0);
 
 	CsvReader csv;
 	csv.Load("TestMap.csv");
 
-	stage_.resize(csv.GetWidth());
-	for (int x = 0; x < stage_.size(); x++) {
-		stage_[x].resize(csv.GetWidth());
-		for (int y = 0; y < stage_[x].size(); y++) {
-			stage_[x][y] = csv.GetValue(x, y);
+	stage_.resize(csv.GetHeight());
+	for (int y = 0; y < csv.GetHeight(); y++) {
+		stage_[y].resize(csv.GetWidth());
+		for (int x = 0; x < csv.GetWidth(); x++) {
+			stage_[y][x] = csv.GetValue(y, x);
 		}
 	}
 }
@@ -42,14 +39,13 @@ void Stage::Update() {
 // 描画
 void Stage::Draw() {
 	Transform t;
-	for (int x = 0; x < stage_.size(); x++) {
-		for (int y = 0; y < stage_[x].size(); y++) {
-			t.position_ = { (float)x, (float)y, 0.0f };
-			//Model::SetTransform(hModel_, t);
-			//Model::Draw(hModel_);
+	for (int y = 0; y < stage_.size(); y++) {
+		for (int x = 0; x < stage_[y].size(); x++) {
+			t.position_ = { (float)x, 0.0f, (float)y };
+			Model::SetTransform(hModel_, t);
+			Model::Draw(hModel_);
 		}
 	}
-
 }
 
 // 開放
