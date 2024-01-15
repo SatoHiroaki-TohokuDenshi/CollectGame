@@ -1,7 +1,7 @@
 #include "PlayScene.h"
 #include "Stage.h"
 #include "Player.h"
-#include "Button.h"4
+#include "Button.h"
 #include "Engine/Camera.h"
 
 // コンストラクタ
@@ -19,7 +19,7 @@ void PlayScene::Initialize() {
 	//b->SetText("Test");
 	Instantiate<Player>(this);
 
-	Camera::SetPosition({ 0.0f, 3.0f, -20.0f });
+	Camera::SetPosition({ 0.0f, 3.0f, -10.0f });
 }
 
 // 更新

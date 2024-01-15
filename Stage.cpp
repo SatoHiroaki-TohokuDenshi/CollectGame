@@ -1,6 +1,7 @@
 #include "Stage.h"
 #include "Engine/Model.h"
 #include "Engine/CsvReader.h"
+#include "Engine/BoxCollider.h"
 
 // コンストラクタ
 Stage::Stage(GameObject* parent)
@@ -27,6 +28,8 @@ void Stage::Initialize() {
 		stage_[y].resize(csv.GetWidth());
 		for (int x = 0; x < csv.GetWidth(); x++) {
 			stage_[y][x] = csv.GetValue(y, x);
+			BoxCollider* collision = new BoxCollider(XMFLOAT3((float)x + 0.5f, -0.5f, (float)y + 0.5f), XMFLOAT3(1, 1, 1));
+			AddCollider(collision);
 		}
 	}
 }
