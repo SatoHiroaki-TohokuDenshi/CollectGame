@@ -6,6 +6,10 @@ class Player : public GameObject {
 private:
 	int hModel_;		//モデル番号
 
+	void Move();			// 移動処理
+	XMFLOAT3 velocity_;		// 移動量
+	bool isOnFloor_;		// 床の上にいるか
+
 public:
 	// コンストラクタ
 	Player(GameObject* parent);
