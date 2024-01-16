@@ -6,13 +6,6 @@ class Player : public GameObject {
 private:
 	int hModel_;		//モデル番号
 
-	// 移動に関係するやつ
-	XMFLOAT3 velocity_;	// 移動量
-	float gravity_;		// 重力加速度
-	bool isJumped_;		// ジャンプしたか
-
-	void MoveInput();	// 移動処理
-
 public:
 	// コンストラクタ
 	Player(GameObject* parent);

@@ -6,8 +6,7 @@
 
 // コンストラクタ
 Player::Player(GameObject* parent)
-	: GameObject(parent, "Player"), hModel_(-1), velocity_(0.0f, 0.0f, 0.0f),
-	isJumped_(false), gravity_(0.01f)
+	: GameObject(parent, "Player"), hModel_(-1)
 {
 }
 
@@ -29,18 +28,6 @@ void Player::Initialize() {
 
 // 更新
 void Player::Update() {
-	// デバッグ用リセットコード
-	if (Input::IsKeyDown(DIK_R)) {
-		transform_.position_ = { 0.0f, 0.0f, 0.0f };
-		velocity_ = { 0.0f, 0.0f, 0.0f };
-		isJumped_ = false;
-		return;
-	}
-
-
-	MoveInput();
-	transform_.position_ = transform_.position_ + velocity_;
-
 	Camera::SetTarget(transform_.position_);
 }
 
@@ -57,40 +44,6 @@ void Player::Release() {
 
 // 何かに当たった
 void Player::OnCollision(GameObject* pTarget) {
-	//ステージ
-	if (pTarget->GetObjectName() == "Stage") {
-		isJumped_ = false;
-		velocity_.y = 0.0f;
-	}
+
 }
 
-void Player::MoveInput() {
-	velocity_.x = 0.0f;
-	velocity_.z = 0.0f;
-
-	// 前後移動
-	if (Input::IsKey(DIK_S)) {	// 左
-		velocity_.z += -0.1f;
-	}
-	if (Input::IsKey(DIK_W)) {	// 右
-		velocity_.z += 0.1f;
-	}
-
-	// 左右移動
-	if (Input::IsKey(DIK_A)) {	// 左
-		velocity_.x += -0.1f;
-	}
-	if (Input::IsKey(DIK_D)) {	// 右
-		velocity_.x += 0.1f;
-	}
-
-	// ジャンプしてたら落下処理して終わり
-	if (isJumped_) {
-		velocity_.y -= gravity_;
-		return;
-	}
-	if (Input::IsKey(DIK_SPACE)) {
-		velocity_.y = 0.25f;
-		isJumped_ = true;
-	}
-}
