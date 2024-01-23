@@ -4,11 +4,27 @@
 // Playerを管理するクラス
 class Player : public GameObject {
 private:
+	enum class ACTION_STATE {
+		IDLE,		// 0:操作無し、待機
+		WALK,		// 1:歩く
+		DASH,		// 2:走る
+		AIR,		// 3:空中（ジャンプ、落下等）
+		LANDING,	// 4:着地
+		MAX			// 5:番兵
+	} state_;
+
 	int hModel_;		//モデル番号
 
 	void Move();			// 移動処理
 	XMFLOAT3 velocity_;		// 移動量
 	bool isOnFloor_;		// 床の上にいるか
+
+	//State：状態による処理
+	void UpdateIdle();
+	void UpdateWalk();
+	void UpdateDash();
+	void UpdateAir();
+	void UpdateLanding();
 
 public:
 	// コンストラクタ

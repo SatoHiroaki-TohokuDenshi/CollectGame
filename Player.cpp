@@ -11,7 +11,7 @@ namespace {
 // コンストラクタ
 Player::Player(GameObject* parent)
 	: GameObject(parent, "Player"), hModel_(-1), velocity_{},
-	isOnFloor_(true)
+	isOnFloor_(true), state_(ACTION_STATE::IDLE)
 {
 }
 
@@ -38,6 +38,24 @@ void Player::Update() {
 		velocity_ = { 0.0f, 0.0f, 0.0f };
 		isOnFloor_ = true;
 		return;
+	}
+
+	switch (state_) {
+	case ACTION_STATE::IDLE:	// 0:操作無し、待機
+		UpdateIdle();
+		break;
+	case ACTION_STATE::WALK:	// 1:歩く
+		UpdateWalk();
+		break;
+	case ACTION_STATE::DASH:	// 2:走る
+		UpdateDash();
+		break;
+	case ACTION_STATE::AIR:		// 3:空中
+		UpdateAir();
+		break;
+	case ACTION_STATE::LANDING:	// 4:着地
+		UpdateLanding();
+		break;
 	}
 
 	isOnFloor_ = false;
@@ -101,4 +119,26 @@ void Player::Move() {
 	if (Input::IsKeyDown(DIK_SPACE)) {
 		velocity_.y += 0.2f;
 	}
+}
+
+void Player::UpdateIdle() {
+
+}
+
+void Player::UpdateWalk() {
+	Move();
+}
+
+void Player::UpdateDash() {
+	Move();
+	XMFLOAT3 dash{ 1.0f, 1.0f, 1.0f };
+	velocity_ = velocity_ + dash;
+}
+
+void Player::UpdateAir() {
+
+}
+
+void Player::UpdateLanding() {
+
 }
